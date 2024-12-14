@@ -14,7 +14,19 @@ const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const corsOptions: CorsOptions = {
-  origin: "*",
+  origin: function (origin: string | undefined, callback: any) {
+    const whitelist = [
+      "https://bullet.skillmate.ai",
+      "http://localhost:3001",
+      "http://localhost:3000",
+      "https://mentor-stage.skillmate.ai",
+    ];
+    if (whitelist.indexOf(origin!) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: [
     "Content-Type",
