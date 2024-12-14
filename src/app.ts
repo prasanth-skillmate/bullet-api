@@ -16,7 +16,20 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const corsOptions: CorsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "X-Requested-With",
+    "Cache-Control", // Add this header explicitly
+    "Pragma",
+    "Expires",
+  ],
+  exposedHeaders: [
+    // Add this to expose additional headers to the browser
+    "Cache-Control",
+    "Pragma",
+    "Expires",
+  ],
   credentials: true,
   maxAge: 84600,
 };
